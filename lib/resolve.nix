@@ -118,8 +118,9 @@ let
         i:
         " (emitted by demand at path ${toJSON i.path}, kind '${i.kind}', subject '${renderSubject i.demand.subject}')";
 
-      # The view a resolver receives: the demand's own fields plus `_path` — nothing else (L2).
-      # `_reserved` (engine bookkeeping) is stripped; no resolved state is ever threaded in.
+      # The view a resolver receives: the demand's own fields plus `_path` — nothing else. This is
+      # the emission⊥consumption invariant of the claim/provide engine design: `_reserved` (engine
+      # bookkeeping) is stripped, and no resolved state is ever threaded in.
       resolverView = i: removeAttrs i.demand [ "_reserved" ] // { _path = i.path; };
 
       groupKeyOf =

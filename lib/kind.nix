@@ -1,6 +1,7 @@
 # Kind registration — the downward-only DAG whose depth stratifies the cascade.
 #
-# `mkKind` builds a single kind record (validating the dedupKey/fold pairing, L3d). `mkKinds`
+# `mkKind` builds a single kind record, rejecting a `dedupKey` without a `fold` and vice versa
+# (grouping and merging are only meaningful together — a registration-time pairing check). `mkKinds`
 # validates the whole set — name uniqueness, `below`-name resolution, acyclicity — and computes
 # per-kind `depth` and `maxDepth`.
 #

@@ -2,9 +2,9 @@
 #
 # The same signature serves two roles: a kind's resource `fold` (`key` = resource key) and a
 # `spliceWiring` `combine` (`key` = top-level wiring key). Folds receive fragments in pinned
-# schedule order (L3b) and must handle one-element lists (the engine applies a kind's fold even
-# to singleton groups). Diagnostics name the `key`; the engine wraps fold calls with path/kind
-# context for the offending demands.
+# schedule order — no silent reorder or dedup (HOAG r2 §B5) — and must handle one-element lists
+# (the engine applies a kind's fold even to singleton groups). Diagnostics name the `key`; the
+# engine wraps fold calls with path/kind context for the offending demands.
 #
 # THEORY: stratum-local aggregation — an aggregate is applied only once a stratum's fact set is
 # complete (Apt, Blair & Walker 1988, "Towards a Theory of Declarative Knowledge"), which is why
