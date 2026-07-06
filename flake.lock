@@ -1,0 +1,47 @@
+{
+  "nodes": {
+    "gen-graph": {
+      "inputs": {
+        "gen-prelude": [
+          "gen-prelude"
+        ]
+      },
+      "locked": {
+        "lastModified": 1783052522,
+        "narHash": "sha256-mFlE4/7+O9SJA2mlfhW1xKdFHGiaYX2BcFXKle2BUIM=",
+        "owner": "sini",
+        "repo": "gen-graph",
+        "rev": "df7c89362985676d38eee559f8dcc68c1b5412ff",
+        "type": "github"
+      },
+      "original": {
+        "owner": "sini",
+        "repo": "gen-graph",
+        "type": "github"
+      }
+    },
+    "gen-prelude": {
+      "locked": {
+        "lastModified": 1783052556,
+        "narHash": "sha256-hgHsrg5p0emX3/SIJhkph6ZSchMuKHnuSOTfpF1Bfs8=",
+        "owner": "sini",
+        "repo": "gen-prelude",
+        "rev": "968579ccf858cfbadf400382f7beaa938b5fde6d",
+        "type": "github"
+      },
+      "original": {
+        "owner": "sini",
+        "repo": "gen-prelude",
+        "type": "github"
+      }
+    },
+    "root": {
+      "inputs": {
+        "gen-graph": "gen-graph",
+        "gen-prelude": "gen-prelude"
+      }
+    }
+  },
+  "root": "root",
+  "version": 7
+}
