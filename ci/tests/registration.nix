@@ -8,10 +8,12 @@ let
   didThrow = e: !(builtins.tryEval (builtins.deepSeq e null)).success;
   succeeds = e: (builtins.tryEval (builtins.deepSeq e null)).success;
 
-  leaf = name: mkKind {
-    inherit name;
-    resolve = _: _: { };
-  };
+  leaf =
+    name:
+    mkKind {
+      inherit name;
+      resolve = _: _: { };
+    };
   # A kind that cascades into `bel`.
   node =
     name: bel:

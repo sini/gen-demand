@@ -18,7 +18,12 @@ let
       resolve = _: _: { };
     })
   ];
-  run = d: resolveAll { inherit kinds; demands = [ d ]; };
+  run =
+    d:
+    resolveAll {
+      inherit kinds;
+      demands = [ d ];
+    };
 
   goodSubject = {
     id_hash = "id-x";
@@ -28,33 +33,56 @@ in
 {
   flake.tests.intake = {
     test-unknown-kind-throws = {
-      expr = didThrow (run (demand { kind = "ghost"; subject = goodSubject; }));
+      expr = didThrow (
+        run (demand {
+          kind = "ghost";
+          subject = goodSubject;
+        })
+      );
       expected = true;
     };
     test-subject-without-id-throws = {
-      expr = didThrow (run (demand { kind = "leaf"; subject = { name = "no-id"; }; }));
+      expr = didThrow (
+        run (demand {
+          kind = "leaf";
+          subject = {
+            name = "no-id";
+          };
+        })
+      );
       expected = true;
     };
     test-reserved-payload-key-throws = {
-      expr = didThrow (run (demand {
-        kind = "leaf";
-        subject = goodSubject;
-        _type = "hijack";
-      }));
+      expr = didThrow (
+        run (demand {
+          kind = "leaf";
+          subject = goodSubject;
+          _type = "hijack";
+        })
+      );
       expected = true;
     };
     # A well-formed root demand intakes cleanly.
     test-valid-root-ok = {
-      expr = succeeds (run (demand { kind = "leaf"; subject = goodSubject; }));
+      expr = succeeds (
+        run (demand {
+          kind = "leaf";
+          subject = goodSubject;
+        })
+      );
       expected = true;
     };
     # `demand` requires kind and subject.
     test-missing-kind-throws = {
-      expr = didThrow (demand { subject = goodSubject; });
+      expr = didThrow (demand {
+        subject = goodSubject;
+      });
       expected = true;
     };
     test-missing-subject-throws = {
-      expr = didThrow (demand { kind = "leaf"; });
+      expr = didThrow (demand {
+        kind = "leaf";
+      });
       expected = true;
     };
   };

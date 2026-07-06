@@ -83,11 +83,12 @@ in
 
     # ── L3b: fold receives fragments in schedule (intake) order ──
     test-fold-order-is-schedule-order = {
-      expr = (runItems [
-        "a"
-        "b"
-        "c"
-      ]).resources.item.g;
+      expr =
+        (runItems [
+          "a"
+          "b"
+          "c"
+        ]).resources.item.g;
       expected = [
         "a"
         "b"
@@ -96,11 +97,12 @@ in
     };
     # ── L3b: permuting the input permutes the fold order (no silent sort) ──
     test-fold-order-follows-permutation = {
-      expr = (runItems [
-        "c"
-        "a"
-        "b"
-      ]).resources.item.g;
+      expr =
+        (runItems [
+          "c"
+          "a"
+          "b"
+        ]).resources.item.g;
       expected = [
         "c"
         "a"
@@ -161,8 +163,14 @@ in
       expr = didThrow (resolveAll {
         kinds = foldlessKinds;
         demands = [
-          (demand { kind = "f"; subject = entry "x"; })
-          (demand { kind = "f"; subject = entry "y"; })
+          (demand {
+            kind = "f";
+            subject = entry "x";
+          })
+          (demand {
+            kind = "f";
+            subject = entry "y";
+          })
         ];
       });
       expected = true;
@@ -178,7 +186,12 @@ in
             resolve = _: _: { resources.k = 1; };
           })
         ];
-        demands = [ (demand { kind = "b"; subject = entry "x"; }) ];
+        demands = [
+          (demand {
+            kind = "b";
+            subject = entry "x";
+          })
+        ];
       });
       expected = true;
     };

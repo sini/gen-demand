@@ -4,7 +4,12 @@
 # emission, wiring) without a live cluster ctx. Subjects are registry entries carrying `id_hash`.
 { genDemand }:
 let
-  inherit (genDemand) mkKind mkKinds demand folds;
+  inherit (genDemand)
+    mkKind
+    mkKinds
+    demand
+    folds
+    ;
 
   # ── entity fixtures (registry entries: id_hash + name) ──
   entry = name: {

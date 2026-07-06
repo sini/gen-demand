@@ -3,7 +3,12 @@
 # yield equal outputs; the engine manufactures no value (resources/wiring pass through untouched).
 { lib, genDemand, ... }:
 let
-  inherit (genDemand) mkKinds mkKind demand resolveAll;
+  inherit (genDemand)
+    mkKinds
+    mkKind
+    demand
+    resolveAll
+    ;
   k8s = import ./_fixtures/k8s.nix { inherit genDemand; };
   r = k8s.resolution;
 
@@ -18,14 +23,37 @@ let
     (mkKind {
       name = "leaf";
       resolve = d: _: {
-        resources.${d.subject.name} = { tag = d.tag; };
+        resources.${d.subject.name} = {
+          tag = d.tag;
+        };
         wiring.env.${d.subject.name} = d.tag;
       };
     })
   ];
-  buildDemands = tags: map (t: demand { kind = "leaf"; subject = entry t; tag = t; }) tags;
-  resA = resolveAll { kinds = simpleKinds; demands = buildDemands [ "x" "y" ]; };
-  resB = resolveAll { kinds = simpleKinds; demands = buildDemands [ "x" "y" ]; };
+  buildDemands =
+    tags:
+    map (
+      t:
+      demand {
+        kind = "leaf";
+        subject = entry t;
+        tag = t;
+      }
+    ) tags;
+  resA = resolveAll {
+    kinds = simpleKinds;
+    demands = buildDemands [
+      "x"
+      "y"
+    ];
+  };
+  resB = resolveAll {
+    kinds = simpleKinds;
+    demands = buildDemands [
+      "x"
+      "y"
+    ];
+  };
 in
 {
   flake.tests.determinism = {
@@ -55,7 +83,11 @@ in
     test-wiring-value-passes-through = {
       expr = resA.wiring."id-x".byKind.leaf;
       expected = [
-        { env = { x = "x"; }; }
+        {
+          env = {
+            x = "x";
+          };
+        }
       ];
     };
 
@@ -91,10 +123,15 @@ in
 
     # ── demand list order is significant: swapping two roots reorders the trace ──
     test-order-significant = {
-      expr = map (d: d.subject.rendered) (resolveAll {
-        kinds = simpleKinds;
-        demands = buildDemands [ "y" "x" ];
-      }).trace.demands;
+      expr =
+        map (d: d.subject.rendered)
+          (resolveAll {
+            kinds = simpleKinds;
+            demands = buildDemands [
+              "y"
+              "x"
+            ];
+          }).trace.demands;
       expected = [
         "y"
         "x"

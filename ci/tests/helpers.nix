@@ -21,15 +21,32 @@ in
   flake.tests.helpers = {
     # ── stock fold semantics ──
     test-folds-list = {
-      expr = folds.list "k" [ 1 2 3 ];
-      expected = [ 1 2 3 ];
+      expr = folds.list "k" [
+        1
+        2
+        3
+      ];
+      expected = [
+        1
+        2
+        3
+      ];
     };
     test-folds-same-agrees = {
-      expr = folds.same "k" [ 7 7 7 ];
+      expr = folds.same "k" [
+        7
+        7
+        7
+      ];
       expected = 7;
     };
     test-folds-same-conflict-throws = {
-      expr = didThrow (folds.same "k" [ 1 2 ]);
+      expr = didThrow (
+        folds.same "k" [
+          1
+          2
+        ]
+      );
       expected = true;
     };
     test-folds-one-single = {
@@ -37,18 +54,31 @@ in
       expected = 42;
     };
     test-folds-one-second-throws = {
-      expr = didThrow (folds.one "k" [ 1 2 ]);
+      expr = didThrow (
+        folds.one "k" [
+          1
+          2
+        ]
+      );
       expected = true;
     };
     test-folds-mergeattrs-disjoint = {
-      expr = folds.mergeAttrs "k" [ { a = 1; } { b = 2; } ];
+      expr = folds.mergeAttrs "k" [
+        { a = 1; }
+        { b = 2; }
+      ];
       expected = {
         a = 1;
         b = 2;
       };
     };
     test-folds-mergeattrs-collision-throws = {
-      expr = didThrow (folds.mergeAttrs "k" [ { a = 1; } { a = 2; } ]);
+      expr = didThrow (
+        folds.mergeAttrs "k" [
+          { a = 1; }
+          { a = 2; }
+        ]
+      );
       expected = true;
     };
 
@@ -90,10 +120,12 @@ in
     };
     # `generator` disagreement inside byKey routes to folds.same → throws.
     test-bykey-subfold-conflict-throws = {
-      expr = didThrow (secretByKey "k" [
-        { generator = "g1"; }
-        { generator = "g2"; }
-      ]);
+      expr = didThrow (
+        secretByKey "k" [
+          { generator = "g1"; }
+          { generator = "g2"; }
+        ]
+      );
       expected = true;
     };
     test-bykey-unknown-fragment-key-throws = {
@@ -124,9 +156,18 @@ in
       expected = [
         [ 0 ]
         [ 1 ]
-        [ 0 1 ]
-        [ 1 0 ]
-        [ 1 1 ]
+        [
+          0
+          1
+        ]
+        [
+          1
+          0
+        ]
+        [
+          1
+          1
+        ]
         [ 2 ]
         [ 3 ]
       ];

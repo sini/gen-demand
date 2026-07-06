@@ -66,10 +66,7 @@ in
   flake.tests.instance-k8s = {
     # ── route → connect(gateways-ns→sonarr) + secret(oidc); database → secret(pg) + connect(→pg) ──
     test-route-cascade-in-trace = {
-      expr = lib.filter (
-        d:
-        d.parent == [ 0 ]
-      ) (map (d: { inherit (d) kind parent; }) r.trace.demands);
+      expr = lib.filter (d: d.parent == [ 0 ]) (map (d: { inherit (d) kind parent; }) r.trace.demands);
       expected = [
         {
           kind = "connect";
@@ -97,13 +94,14 @@ in
 
     # ── shared api-key group folds N claimants into ONE Secret (byKey: generator same, stringData merge) ──
     test-shared-api-key-single-secret = {
-      expr = r.resources.secret."media-arr-api-keys" == {
-        generator = "hex-secret";
-        stringData = {
-          sonarr = "secret://sonarr/arr-api-key";
-          radarr = "secret://radarr/arr-api-key";
+      expr =
+        r.resources.secret."media-arr-api-keys" == {
+          generator = "hex-secret";
+          stringData = {
+            sonarr = "secret://sonarr/arr-api-key";
+            radarr = "secret://radarr/arr-api-key";
+          };
         };
-      };
       expected = true;
     };
 

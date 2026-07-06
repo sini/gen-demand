@@ -26,26 +26,39 @@ let
         resolve = _: _: { };
       })
     ]
-    ++ map (
-      n:
-      mkKind {
-        name = "l${toString n}";
-        below = [ "l${toString (n - 1)}" ];
-        resolve = d: _: {
-          demands = [
-            (demand {
-              kind = "l${toString (n - 1)}";
-              subject = d.subject;
-            })
-          ];
-        };
-      }
-    ) [ 1 2 3 4 ]
+    ++
+      map
+        (
+          n:
+          mkKind {
+            name = "l${toString n}";
+            below = [ "l${toString (n - 1)}" ];
+            resolve = d: _: {
+              demands = [
+                (demand {
+                  kind = "l${toString (n - 1)}";
+                  subject = d.subject;
+                })
+              ];
+            };
+          }
+        )
+        [
+          1
+          2
+          3
+          4
+        ]
   );
 
   chainRes = resolveAll {
     kinds = chainKinds;
-    demands = [ (demand { kind = "l4"; subject = subj; }) ];
+    demands = [
+      (demand {
+        kind = "l4";
+        subject = subj;
+      })
+    ];
   };
 
   # ── leaf-emits-a-sub-demand → error ──
@@ -58,7 +71,12 @@ let
       name = "leaf";
       # below = [] — a leaf; emitting ANY sub-demand must throw.
       resolve = d: _: {
-        demands = [ (demand { kind = "m"; subject = d.subject; }) ];
+        demands = [
+          (demand {
+            kind = "m";
+            subject = d.subject;
+          })
+        ];
       };
     })
   ];
@@ -77,7 +95,12 @@ let
       name = "a";
       below = [ "b" ]; # c is registered but NOT below a
       resolve = d: _: {
-        demands = [ (demand { kind = "c"; subject = d.subject; }) ];
+        demands = [
+          (demand {
+            kind = "c";
+            subject = d.subject;
+          })
+        ];
       };
     })
   ];
@@ -100,7 +123,12 @@ let
     badDemand:
     resolveAll {
       kinds = emitBadKinds badDemand;
-      demands = [ (demand { kind = "a"; subject = subj; }) ];
+      demands = [
+        (demand {
+          kind = "a";
+          subject = subj;
+        })
+      ];
     };
 in
 {
@@ -137,30 +165,46 @@ in
     test-leaf-emitting-throws = {
       expr = didThrow (resolveAll {
         kinds = leafEmitsKinds;
-        demands = [ (demand { kind = "leaf"; subject = subj; }) ];
+        demands = [
+          (demand {
+            kind = "leaf";
+            subject = subj;
+          })
+        ];
       });
       expected = true;
     };
     test-emit-outside-below-throws = {
       expr = didThrow (resolveAll {
         kinds = outsideBelowKinds;
-        demands = [ (demand { kind = "a"; subject = subj; }) ];
+        demands = [
+          (demand {
+            kind = "a";
+            subject = subj;
+          })
+        ];
       });
       expected = true;
     };
     test-emit-subject-without-id-throws = {
-      expr = didThrow (runEmit (demand {
-        kind = "b";
-        subject = { name = "no-id"; };
-      }));
+      expr = didThrow (
+        runEmit (demand {
+          kind = "b";
+          subject = {
+            name = "no-id";
+          };
+        })
+      );
       expected = true;
     };
     test-emit-reserved-key-throws = {
-      expr = didThrow (runEmit (demand {
-        kind = "b";
-        subject = subj;
-        _path = "hijacked";
-      }));
+      expr = didThrow (
+        runEmit (demand {
+          kind = "b";
+          subject = subj;
+          _path = "hijacked";
+        })
+      );
       expected = true;
     };
   };

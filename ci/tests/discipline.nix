@@ -41,7 +41,12 @@ let
       below = [ "leaf" ];
       resolve = d: ctx: {
         resources.compSeen = probe d ctx;
-        demands = [ (demand { kind = "leaf"; subject = d.subject; }) ];
+        demands = [
+          (demand {
+            kind = "leaf";
+            subject = d.subject;
+          })
+        ];
       };
     })
   ];

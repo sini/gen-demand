@@ -27,7 +27,10 @@ let
   # Every demand's parent is either null (a root) or the direct-prefix path of an existing demand.
   parentChainsSound = all (
     d:
-    if d.parent == null then length d.path == 1 else d.parent == parentPrefix d.path && elem d.parent pathsPresent
+    if d.parent == null then
+      length d.path == 1
+    else
+      d.parent == parentPrefix d.path && elem d.parent pathsPresent
   ) demands;
 
   # The stratum-major golden: locate route[0], database[1], and the connect sub-demand [0 0].
