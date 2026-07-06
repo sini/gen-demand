@@ -216,8 +216,8 @@ filterDemands : { select, demands } -> [ demand ]
 Loaded only when gen-select is injected (`select != null`). Keeps the demands whose **subject** matches
 a gen-select selector, order-preserving. The selector is passed verbatim to gen-select's `matches`
 against a single-node context built from each demand's subject entry (its own attributes as `data`);
-the roadmap §8 constructors (`sel.entity <entry>`, `sel.kind <schema-kind>`) match through this
-subject context.
+entity matching (`genSelect.attrs { id_hash = …; }`) and kind matching (`genSelect.entityKind
+<schema-kind>`) both resolve through this subject context.
 
 ## Trace
 

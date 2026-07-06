@@ -2,9 +2,9 @@
 #
 # `filterDemands` keeps the demands whose SUBJECT matches a gen-select selector, order-preserving.
 # The selector value is opaque here: it is passed verbatim to gen-select's `matches` against a
-# single-node context built from each demand's subject entry (its own attributes as `data`). The
-# roadmap §8 constructors (`sel.entity <entry>`, `sel.kind <schema-kind>`) match through this
-# subject context; if the pinned gen-select predates them, any selector `matches` understands works.
+# single-node context built from each demand's subject entry (its own attributes as `data`). Entity
+# matching (`genSelect.attrs { id_hash = …; }`) and kind matching (`genSelect.entityKind
+# <schema-kind>`) both resolve through this subject context; any selector `matches` understands works.
 { selectLib, prelude }:
 let
   inherit (prelude) filter;

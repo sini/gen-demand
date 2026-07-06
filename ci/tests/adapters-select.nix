@@ -13,7 +13,7 @@ let
   inherit (genDemandWithSelect) demand;
   inherit (genDemandWithSelect.adapters.select) filterDemands;
 
-  # Subjects carry id_hash (identity), name, and a kind tag `type` for sel.kind / entityKind.
+  # Subjects carry id_hash (identity), name, and a kind tag `type` for `genSelect.entityKind`.
   entry = name: type: {
     id_hash = "id-${name}";
     inherit name type;
@@ -38,7 +38,7 @@ let
 in
 {
   flake.tests.adapters-select = {
-    # ── sel.entity <entry> — match one specific entity by identity (id_hash) ──
+    # ── genSelect.attrs { id_hash = …; } — match one specific entity by identity ──
     test-select-entity-by-identity = {
       expr = names (filterDemands {
         select = genSelect.attrs { id_hash = "id-sonarr"; };
@@ -47,7 +47,7 @@ in
       expected = [ "sonarr" ];
     };
 
-    # ── sel.kind <schema-kind> — match all entities of a kind ──
+    # ── genSelect.entityKind <schema-kind> — match all entities of a kind ──
     test-select-kind-matches-all-of-kind = {
       expr = names (filterDemands {
         select = genSelect.entityKind "app";
