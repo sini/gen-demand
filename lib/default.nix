@@ -27,7 +27,10 @@ let
       { }
     else
       {
-        select = import ./adapters/select.nix { inherit prelude; selectLib = select; };
+        select = import ./adapters/select.nix {
+          inherit prelude;
+          selectLib = select;
+        };
       };
 in
 {

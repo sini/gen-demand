@@ -192,7 +192,12 @@ let
               ) childrenRaw;
             in
             {
-              inherit (i) path parent stratum kind;
+              inherit (i)
+                path
+                parent
+                stratum
+                kind
+                ;
               subject = i.demand.subject;
               gk = groupKeyOf i rv;
               inherit result children;
@@ -315,7 +320,9 @@ let
         map (
           e:
           if !hasId (e.subject or null) then
-            throw "gen-demand: wiring at path ${toJSON r.path} (kind '${r.kind}') targets a subject without id_hash (renders as '${renderSubject (e.subject or null)}')"
+            throw "gen-demand: wiring at path ${toJSON r.path} (kind '${r.kind}') targets a subject without id_hash (renders as '${
+              renderSubject (e.subject or null)
+            }')"
           else
             {
               id = e.subject.id_hash;
@@ -340,7 +347,12 @@ let
 
       # ── trace.demands (global schedule order) ──
       traceDemands = map (r: {
-        inherit (r) path parent stratum kind;
+        inherit (r)
+          path
+          parent
+          stratum
+          kind
+          ;
         subject = {
           id_hash = r.subject.id_hash;
           rendered = renderSubject r.subject;
