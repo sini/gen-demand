@@ -134,6 +134,24 @@ genDemand.spliceWiring {
 };
 ```
 
+## Optional: subject selection (`adapters.select`)
+
+When gen-select is injected, `adapters.select.filterDemands { select, demands }` keeps the demands
+whose **subject** matches a selector, order-preserving — a pre-filter before `resolveAll`. The subject
+is projected as an identity-bearing node, so gen-select's identity-law constructors apply directly
+(`sel` = the injected gen-select surface):
+
+```nix
+inherit (genDemand.adapters.select) filterDemands;
+
+filterDemands { select = sel.entity apps.sonarr; inherit demands; };  # subject IS this entity (id_hash)
+filterDemands { select = sel.kind schema.app;    inherit demands; };  # subjects of a kind (__identity.kind)
+```
+
+`sel.attrs` / `sel.star` / `sel.not` compose over the same node; a subject carrying no kind tag makes
+`sel.kind` throw loudly (a projection gap, never a silent never-match). The core loads without
+gen-select — `adapters` is then `{ }`.
+
 ## The five-kind k8s instance
 
 `ci/tests/_fixtures/k8s.nix` registers the claim engine's five kinds (`connect`/`secret`/`storage`
