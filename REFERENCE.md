@@ -215,9 +215,11 @@ filterDemands : { select, demands } -> [ demand ]
 
 Loaded only when gen-select is injected (`select != null`). Keeps the demands whose **subject** matches
 a gen-select selector, order-preserving. The selector is passed verbatim to gen-select's `matches`
-against a single-node context built from each demand's subject entry (its own attributes as `data`);
-entity matching (`genSelect.attrs { id_hash = …; }`) and kind matching (`genSelect.entityKind
-<schema-kind>`) both resolve through this subject context.
+against a single-node context that projects the subject as an **identity-bearing node**: its own
+attributes plus an `__identity` record (`id_hash` + `kind`, the subject's positional `type` tag).
+`sel.entity <entry>` matches by content-addressed identity (`__identity.id_hash`), `sel.kind <kind-value>` matches by kind (`__identity.kind`), and `sel.attrs`/`sel.star`/`sel.not` compose over the
+same node. A subject carrying no kind tag projects `kind = null`, so `sel.kind` throws loudly on it (a
+projection gap, never a silent never-match).
 
 ## Trace
 
