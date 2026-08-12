@@ -200,4 +200,5 @@ Or inside the devshell: `ci` (all) / `ci suite.test` (one). Named groups: `regis
   gen-dispatch; not a scope-engine graph). The pinned-order/associative-only collection discipline is
   HOAG r2 §B5.
 
-See [REFERENCE.md](./REFERENCE.md) for the complete API contract.
+See `gen-specs/gen-demand/REFERENCE.md` in the den-architecture papers repository for the complete API
+contract. Reference specs live there, not in the library repo.

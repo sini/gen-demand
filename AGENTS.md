@@ -123,7 +123,7 @@ Each row verified in this run at rev `9039928` by evaluating against `import ./.
 
 ## Theory
 
-`REFERENCE.md:36-44` states its sources as a **Feature / Source / Relationship** table whose relationship column reads "Implements" throughout, plus one explicit non-implementation and an internal-provenance row; `README.md:184-201` restates the same set.
+The reference spec — papers `gen-specs/gen-demand/REFERENCE.md:36-44` — states its sources as a **Feature / Source / Relationship** table whose relationship column reads "Implements" throughout, plus one explicit non-implementation and an internal-provenance row; `README.md:184-201` restates the same set.
 
 **Implements**
 
@@ -132,7 +132,7 @@ Each row verified in this run at rev `9039928` by evaluating against `import ./.
 - **Cheney, Chiticariu & Tan (2009), *Provenance in Databases: Why, How, and Where*** — the trace realizes witness provenance (artifact ↦ producing demand instances) extended with derivation paths (parent chains to roots) (`lib/resolve.nix:13-14`).
 - **gen-graph condensation** — cycle detection over kind names reuses the same throw-on-cycle discipline as `gen-graph.phaseOrder` (`lib/kind.nix:81-89`).
 
-**Deliberately not implemented**: the semiring provenance algebra of Green–Karvounarakis–Tannen (2007) — traces are records, not algebraic values (`REFERENCE.md:42`).
+**Deliberately not implemented**: the semiring provenance algebra of Green–Karvounarakis–Tannen (2007) — traces are records, not algebraic values (papers `gen-specs/gen-demand/REFERENCE.md:42`).
 
 **Internal provenance**: the cascade model, the five k8s kinds, the leaf/composite split, the shared-secret/shared-PVC dedup shapes and the emission ⊥ consumption invariant originate in the nix-config claim/provide engine design (2026-06-13), carrying its two negative findings (not gen-dispatch; not a scope-engine graph). Pinned-order, associative-only collection is HOAG r2 §B5 (`lib/folds.nix:6-7`).
 
