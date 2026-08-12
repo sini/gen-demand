@@ -1,6 +1,6 @@
 {
   inputs = {
-    gen.url = "github:sini/gen";
+    gen-harness.url = "github:sini/gen-harness";
     gen-prelude.url = "github:sini/gen-prelude";
     gen-graph.url = "github:sini/gen-graph";
     gen-graph.inputs.gen-prelude.follows = "gen-prelude";
@@ -14,7 +14,7 @@
 
   outputs =
     inputs@{
-      gen,
+      gen-harness,
       gen-prelude,
       gen-graph,
       gen-select,
@@ -33,7 +33,7 @@
         select = gen-select.lib;
       };
     in
-    gen.lib.mkCi {
+    gen-harness.lib.mkCi {
       inherit inputs;
       name = "gen-demand";
       testModules = ./tests;
