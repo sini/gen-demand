@@ -1,5 +1,23 @@
 # gen-demand — typed demand cascade (kinds / demand / resolveAll / folds)
 
+> ## ⚠ ARCHIVED — this library has retired. Its successor is [gen-scope](https://github.com/sini/gen-scope).
+>
+> **The ruling.** ADR-0008 §4 retires gen-demand as a library: its demand/kind folds re-express over
+> scope, and ADR-0006 makes gen-scope the sole execution engine — the home §4 names. The repository is
+> **orphaned for reference** under ADR-0031's F3 pattern: **no content is deleted**, nothing here is
+> maintained, and gen-demand is off the `mkGenLibs` roster and no longer a `gen` hub input.
+>
+> **Take no new dependency on this repository.** The cascade lives in gen-scope's `lib/cascade.nix` and
+> `lib/folds.nix`, where the request value is a **claim** (`mkClaim`, `resolveClaims`) rather than a
+> demand — named for what it is rather than for the evaluation strategy. The export-by-export map is
+> `gen-specs/gen-scope/gen-demand-retirement.md` in the den-architecture papers repository. One export
+> did not move: `adapters` retires with its construct, and gen-scope takes no `gen-select` edge.
+>
+> **Why it stays readable.** The re-expression is not finished. The stratification driver
+> (`lib/stratify.nix`) has not landed, and that work still **reads this repository as its source**. The
+> text below is the retiring surface as it stood; it describes what this library did, not what anyone
+> should now build on.
+
 [![CI](https://github.com/sini/gen-demand/actions/workflows/ci.yml/badge.svg)](https://github.com/sini/gen-demand/actions/workflows/ci.yml) [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT) [![Sponsor](https://img.shields.io/badge/Sponsor-%E2%9D%A4-pink?logo=github)](https://github.com/sponsors/sini)
 
 Pure-Nix, `nixpkgs.lib`-free **typed demand cascade**. Graph nodes emit typed **demands**; registered

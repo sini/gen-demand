@@ -1,5 +1,18 @@
 # gen-demand — agent capability sheet
 
+> **⚠ ARCHIVED — this library has retired; its successor is `gen-scope`.** ADR-0008 §4 retires
+> gen-demand as a library (its demand/kind folds re-express over scope) and ADR-0006 makes gen-scope
+> the sole execution engine. The repository is **orphaned for reference** under ADR-0031's F3 pattern:
+> no content is deleted, nothing is maintained, and gen-demand is off the `mkGenLibs` roster and no
+> longer a `gen` hub input. **Do not route new work here and do not add a consumer.** The cascade is
+> gen-scope's `lib/cascade.nix` + `lib/folds.nix`, under claim vocabulary (`mkClaim`,
+> `resolveClaims`); the export map is `gen-specs/gen-scope/gen-demand-retirement.md` in the
+> den-architecture papers repository. `adapters` retires with its construct and moves nowhere.
+>
+> **It stays readable because the re-expression is unfinished** — the stratification driver has not
+> landed, and that work reads this repository as its source. Everything below describes the retiring
+> surface, not a surface to build on.
+
 ## Scope
 
 Typed demand cascade: registered **kinds** resolve **demand** values (`{ _type = "gen-demand/demand"; kind; subject; … }`) into resources + wiring + sub-demands, and a stratified, terminating fold over a registration-time kind DAG resolves the whole multiset with a provenance trace.
