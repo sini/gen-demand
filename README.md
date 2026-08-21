@@ -33,8 +33,11 @@ discipline — termination, stratification, grouping/dedup, ordering, and proven
 payloads, resources, and wiring values are all opaque to it.
 
 The library produces **pure data**. It never constructs edges, modules, or configuration; at the
-den-hoag layer, `resources`/`wiring` feed gen-edge constructors. It never *collects* demands either —
-it takes an already-collected, **ordered** demand list (fan-in is gen-pipe's job).
+den-hoag layer, `resources`/`wiring` fed gen-edge's constructors. It never *collects* demands either —
+it takes an already-collected, **ordered** demand list (fan-in was gen-pipe's job). Both of those
+siblings have since retired under ADR-0010 §3, into gen-view's movement vocabulary; they are named
+here in the past tense because this paragraph describes the division of labour as it stood, and the
+division itself is what the sentence is about.
 
 ## Layering
 
